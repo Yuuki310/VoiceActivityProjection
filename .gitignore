@@ -1,6 +1,6 @@
 # Custom
-.sh
-.out
+*.sh
+*.out
 old_run/
 example_result/
 example/
