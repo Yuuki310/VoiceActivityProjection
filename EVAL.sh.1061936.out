@@ -1,108 +1,0 @@
-GPU available: True (cuda), used: True
-TPU available: False, using: 0 TPU cores
-IPU available: False, using: 0 IPUs
-HPU available: False, using: 0 HPUs
-/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/connectors/logger_connector/logger_connector.py:67: UserWarning: Starting from v1.9.0, `tensorboardX` has been removed as a dependency of the `pytorch_lightning` package, due to potential conflicts with other packages in the ML ecosystem. For this reason, `logger=True` will use `CSVLogger` as the default logger, unless the `tensorboard` or `tensorboardX` packages are found. Please `pip install lightning[extra]` or one of them to enable TensorBoard support by default
-  warning_cache.warn(
-/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torch/utils/data/dataloader.py:563: UserWarning: This DataLoader will create 40 worker processes in total. Our suggested max number of worker in current system is 10, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
-  warnings.warn(_create_warning_msg(
-Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/1
-[W socket.cpp:401] [c10d] The server socket cannot be initialized on [::]:54449 (errno: 97 - Address family not supported by protocol).
-[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:54449 (errno: 97 - Address family not supported by protocol).
-[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:54449 (errno: 97 - Address family not supported by protocol).
-----------------------------------------------------------------------------------------------------
-distributed_backend=nccl
-All distributed processes registered. Starting with 1 processes
-----------------------------------------------------------------------------------------------------
-
-LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-SAVEPATH:  runs_evaluation/best_model.pt
-Load Model...
-From state-dict:  exp/callhome_jpn/best_model.pt
-########################################
-Load pretrained CPC
-########################################
-Froze EncoderCPC!
-------------------------------------------------------------
-Dataloader
-  datasets: ['callhome_jpn']
-  type: sliding
-  sample_rate: 16000
-  audio_mono: False
-  audio_duration: 20
-  audio_normalize: True
-  audio_overlap: 2
-  audio_context_duration: 5
-  ipu_min_time: 1
-  ipu_pause_time: 0.2
-  vad_hz: 50
-  vad_horizon: 2
-  vad_history: True
-  vad_history_times: [60, 30, 10, 5]
-  batch_size: 4
-
-{'logger': True, 'enable_checkpointing': True, 'default_root_dir': None, 'gradient_clip_val': None, 'gradient_clip_algorithm': None, 'num_nodes': 1, 'num_processes': None, 'devices': None, 'auto_select_gpus': None, 'tpu_cores': None, 'ipus': None, 'enable_progress_bar': True, 'overfit_batches': 0.0, 'track_grad_norm': -1, 'check_val_every_n_epoch': 1, 'fast_dev_run': False, 'accumulate_grad_batches': None, 'max_epochs': None, 'min_epochs': None, 'max_steps': -1, 'min_steps': None, 'max_time': None, 'limit_train_batches': None, 'limit_val_batches': None, 'limit_test_batches': None, 'limit_predict_batches': None, 'val_check_interval': None, 'log_every_n_steps': 50, 'accelerator': None, 'strategy': None, 'sync_batchnorm': False, 'precision': 32, 'enable_model_summary': True, 'num_sanity_val_steps': 2, 'resume_from_checkpoint': None, 'profiler': None, 'benchmark': None, 'reload_dataloaders_every_n_epochs': 0, 'auto_lr_find': False, 'replace_sampler_ddp': True, 'detect_anomaly': False, 'auto_scale_batch_size': False, 'plugins': None, 'amp_backend': None, 'amp_level': None, 'move_metrics_to_cpu': False, 'multiple_trainloader_mode': 'max_size_cycle', 'inference_mode': True}
-Testing: 0it [00:00, ?it/s]
-Phrases:   0%|          | 0/36 [00:00<?, ?it/s][A
-Phrases:   3%|▎         | 1/36 [00:05<03:04,  5.27s/it][A
-Phrases:  11%|█         | 4/36 [00:05<00:33,  1.04s/it][A
-Phrases:  17%|█▋        | 6/36 [00:05<00:18,  1.65it/s][A
-Phrases:  25%|██▌       | 9/36 [00:05<00:09,  2.94it/s][A
-Phrases:  36%|███▌      | 13/36 [00:05<00:04,  5.19it/s][A
-Phrases:  44%|████▍     | 16/36 [00:05<00:02,  7.17it/s][A
-Phrases:  53%|█████▎    | 19/36 [00:06<00:02,  8.46it/s][A
-Phrases:  61%|██████    | 22/36 [00:06<00:01, 10.75it/s][A
-Phrases:  69%|██████▉   | 25/36 [00:06<00:00, 12.10it/s][A
-Phrases:  78%|███████▊  | 28/36 [00:06<00:00, 13.12it/s][A
-Phrases:  86%|████████▌ | 31/36 [00:06<00:00, 15.37it/s][A
-Phrases:  94%|█████████▍| 34/36 [00:06<00:00, 17.11it/s][A
-                                                        [ATesting:   0%|          | 0/93 [00:00<?, ?it/s]Testing DataLoader 0:   0%|          | 0/93 [00:00<?, ?it/s]Testing DataLoader 0:   1%|          | 1/93 [00:00<00:48,  1.90it/s]Testing DataLoader 0:   2%|▏         | 2/93 [00:00<00:38,  2.36it/s]Testing DataLoader 0:   3%|▎         | 3/93 [00:01<00:36,  2.47it/s]Testing DataLoader 0:   4%|▍         | 4/93 [00:01<00:35,  2.52it/s]Testing DataLoader 0:   5%|▌         | 5/93 [00:01<00:33,  2.64it/s]Testing DataLoader 0:   6%|▋         | 6/93 [00:02<00:31,  2.74it/s]Testing DataLoader 0:   8%|▊         | 7/93 [00:02<00:29,  2.91it/s]Testing DataLoader 0:   9%|▊         | 8/93 [00:02<00:27,  3.13it/s]Testing DataLoader 0:  10%|▉         | 9/93 [00:02<00:25,  3.33it/s]Testing DataLoader 0:  11%|█         | 10/93 [00:02<00:24,  3.35it/s]Testing DataLoader 0:  12%|█▏        | 11/93 [00:03<00:23,  3.53it/s]Testing DataLoader 0:  13%|█▎        | 12/93 [00:03<00:22,  3.64it/s]Testing DataLoader 0:  14%|█▍        | 13/93 [00:03<00:21,  3.78it/s]Testing DataLoader 0:  15%|█▌        | 14/93 [00:03<00:20,  3.94it/s]Testing DataLoader 0:  16%|█▌        | 15/93 [00:03<00:19,  4.06it/s]Testing DataLoader 0:  17%|█▋        | 16/93 [00:03<00:18,  4.20it/s]Testing DataLoader 0:  18%|█▊        | 17/93 [00:03<00:17,  4.33it/s]Testing DataLoader 0:  19%|█▉        | 18/93 [00:04<00:16,  4.46it/s]Testing DataLoader 0:  20%|██        | 19/93 [00:04<00:16,  4.58it/s]Testing DataLoader 0:  22%|██▏       | 20/93 [00:04<00:15,  4.69it/s]Testing DataLoader 0:  23%|██▎       | 21/93 [00:04<00:14,  4.80it/s]Testing DataLoader 0:  24%|██▎       | 22/93 [00:04<00:14,  4.91it/s]Testing DataLoader 0:  25%|██▍       | 23/93 [00:04<00:13,  5.01it/s]Testing DataLoader 0:  26%|██▌       | 24/93 [00:04<00:13,  5.11it/s]Testing DataLoader 0:  27%|██▋       | 25/93 [00:04<00:13,  5.20it/s]Testing DataLoader 0:  28%|██▊       | 26/93 [00:04<00:12,  5.28it/s]Testing DataLoader 0:  29%|██▉       | 27/93 [00:05<00:12,  5.36it/s]Testing DataLoader 0:  30%|███       | 28/93 [00:05<00:11,  5.44it/s]Testing DataLoader 0:  31%|███       | 29/93 [00:05<00:11,  5.52it/s]Testing DataLoader 0:  32%|███▏      | 30/93 [00:05<00:11,  5.60it/s]Testing DataLoader 0:  33%|███▎      | 31/93 [00:05<00:10,  5.67it/s]Testing DataLoader 0:  34%|███▍      | 32/93 [00:05<00:10,  5.73it/s]Testing DataLoader 0:  35%|███▌      | 33/93 [00:05<00:10,  5.79it/s]Testing DataLoader 0:  37%|███▋      | 34/93 [00:05<00:10,  5.85it/s]Testing DataLoader 0:  38%|███▊      | 35/93 [00:05<00:09,  5.91it/s]Testing DataLoader 0:  39%|███▊      | 36/93 [00:06<00:09,  5.96it/s]Testing DataLoader 0:  40%|███▉      | 37/93 [00:06<00:09,  6.01it/s]Testing DataLoader 0:  41%|████      | 38/93 [00:06<00:09,  6.07it/s]Testing DataLoader 0:  42%|████▏     | 39/93 [00:06<00:08,  6.13it/s]Testing DataLoader 0:  43%|████▎     | 40/93 [00:06<00:08,  6.19it/s]Testing DataLoader 0:  44%|████▍     | 41/93 [00:06<00:08,  6.24it/s]Testing DataLoader 0:  45%|████▌     | 42/93 [00:06<00:08,  6.28it/s]Testing DataLoader 0:  46%|████▌     | 43/93 [00:06<00:07,  6.32it/s]Testing DataLoader 0:  47%|████▋     | 44/93 [00:06<00:07,  6.37it/s]Testing DataLoader 0:  48%|████▊     | 45/93 [00:07<00:07,  6.40it/s]Testing DataLoader 0:  49%|████▉     | 46/93 [00:07<00:07,  6.44it/s]Testing DataLoader 0:  51%|█████     | 47/93 [00:07<00:07,  6.48it/s]Testing DataLoader 0:  52%|█████▏    | 48/93 [00:07<00:06,  6.51it/s]Testing DataLoader 0:  53%|█████▎    | 49/93 [00:07<00:06,  6.54it/s]Testing DataLoader 0:  54%|█████▍    | 50/93 [00:07<00:06,  6.57it/s]Testing DataLoader 0:  55%|█████▍    | 51/93 [00:07<00:06,  6.60it/s]Testing DataLoader 0:  56%|█████▌    | 52/93 [00:07<00:06,  6.63it/s]Testing DataLoader 0:  57%|█████▋    | 53/93 [00:07<00:06,  6.66it/s]Testing DataLoader 0:  58%|█████▊    | 54/93 [00:08<00:05,  6.69it/s]Testing DataLoader 0:  59%|█████▉    | 55/93 [00:08<00:05,  6.72it/s]Testing DataLoader 0:  60%|██████    | 56/93 [00:08<00:05,  6.75it/s]Testing DataLoader 0:  61%|██████▏   | 57/93 [00:08<00:05,  6.77it/s]Testing DataLoader 0:  62%|██████▏   | 58/93 [00:08<00:05,  6.80it/s]Testing DataLoader 0:  63%|██████▎   | 59/93 [00:08<00:04,  6.82it/s]Testing DataLoader 0:  65%|██████▍   | 60/93 [00:08<00:04,  6.85it/s]Testing DataLoader 0:  66%|██████▌   | 61/93 [00:08<00:04,  6.88it/s]Testing DataLoader 0:  67%|██████▋   | 62/93 [00:08<00:04,  6.90it/s]Testing DataLoader 0:  68%|██████▊   | 63/93 [00:09<00:04,  6.92it/s]Testing DataLoader 0:  69%|██████▉   | 64/93 [00:09<00:04,  6.94it/s]Testing DataLoader 0:  70%|██████▉   | 65/93 [00:09<00:04,  6.96it/s]Testing DataLoader 0:  71%|███████   | 66/93 [00:09<00:03,  6.98it/s]Testing DataLoader 0:  72%|███████▏  | 67/93 [00:09<00:03,  7.00it/s]Testing DataLoader 0:  73%|███████▎  | 68/93 [00:09<00:03,  7.02it/s]Testing DataLoader 0:  74%|███████▍  | 69/93 [00:09<00:03,  7.04it/s]Testing DataLoader 0:  75%|███████▌  | 70/93 [00:09<00:03,  7.06it/s]Testing DataLoader 0:  76%|███████▋  | 71/93 [00:10<00:03,  7.08it/s]Testing DataLoader 0:  77%|███████▋  | 72/93 [00:10<00:02,  7.09it/s]Testing DataLoader 0:  78%|███████▊  | 73/93 [00:10<00:02,  7.11it/s]Testing DataLoader 0:  80%|███████▉  | 74/93 [00:10<00:02,  7.13it/s]Testing DataLoader 0:  81%|████████  | 75/93 [00:10<00:02,  7.14it/s]Testing DataLoader 0:  82%|████████▏ | 76/93 [00:10<00:02,  7.16it/s]Testing DataLoader 0:  83%|████████▎ | 77/93 [00:10<00:02,  7.18it/s]Testing DataLoader 0:  84%|████████▍ | 78/93 [00:10<00:02,  7.19it/s]Testing DataLoader 0:  85%|████████▍ | 79/93 [00:10<00:01,  7.21it/s]Testing DataLoader 0:  86%|████████▌ | 80/93 [00:11<00:01,  7.23it/s]Testing DataLoader 0:  87%|████████▋ | 81/93 [00:11<00:01,  7.24it/s]Testing DataLoader 0:  88%|████████▊ | 82/93 [00:11<00:01,  7.25it/s]Testing DataLoader 0:  89%|████████▉ | 83/93 [00:11<00:01,  7.27it/s]Testing DataLoader 0:  90%|█████████ | 84/93 [00:11<00:01,  7.28it/s]Testing DataLoader 0:  91%|█████████▏| 85/93 [00:11<00:01,  7.29it/s]Testing DataLoader 0:  92%|█████████▏| 86/93 [00:11<00:00,  7.31it/s]Testing DataLoader 0:  94%|█████████▎| 87/93 [00:11<00:00,  7.32it/s]Testing DataLoader 0:  95%|█████████▍| 88/93 [00:11<00:00,  7.34it/s]Testing DataLoader 0:  96%|█████████▌| 89/93 [00:12<00:00,  7.35it/s]Testing DataLoader 0:  97%|█████████▋| 90/93 [00:12<00:00,  7.36it/s]Testing DataLoader 0:  98%|█████████▊| 91/93 [00:12<00:00,  7.37it/s]Testing DataLoader 0:  99%|█████████▉| 92/93 [00:12<00:00,  7.38it/s]Testing DataLoader 0: 100%|██████████| 93/93 [00:12<00:00,  7.41it/s]/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchmetrics/utilities/prints.py:36: UserWarning: The ``compute`` method of metric MulticlassF1Score was called before the ``update`` method which may lead to errors, as metric states have not yet been updated.
-  warnings.warn(*args, **kwargs)
-/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchmetrics/utilities/prints.py:36: UserWarning: The ``compute`` method of metric MulticlassAccuracy was called before the ``update`` method which may lead to errors, as metric states have not yet been updated.
-  warnings.warn(*args, **kwargs)
-Testing DataLoader 0: 100%|██████████| 93/93 [00:12<00:00,  7.32it/s]
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       Test metric               DataLoader 0
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       test_hs:f1w            0.6736370921134949
-    test_hs:shift_acc         0.6070935130119324
-  test_long_future_hold       0.4094850718975067
-  test_long_future_pred       0.4081295430660248
-  test_long_future_react     0.44337698817253113
-    test_long_now_hold       0.19444061815738678
-    test_long_now_pred       0.25913044810295105
-   test_long_now_react        0.4480973780155182
-test_long_scp_future_hold    0.40036994218826294
-test_long_scp_future_pred     0.4185618758201599
-test_long_scp_future_react    0.4189300537109375
-  test_long_scp_now_hold     0.18223130702972412
-  test_long_scp_now_pred      0.2129066288471222
- test_long_scp_now_react      0.1938251107931137
-  test_long_scp_tot_hold      0.295534610748291
-  test_long_scp_tot_pred      0.3200090229511261
- test_long_scp_tot_react      0.3110473155975342
-    test_long_tot_hold       0.30630359053611755
-    test_long_tot_pred        0.3371826112270355
-   test_long_tot_react        0.4446078836917877
-        test_loss              2.71386981010437
-       test_loss_va           0.2986723780632019
-      test_ls:short           0.6690763235092163
-   test_pred_bc:bc_pred              0.0
-    test_pred_sh:shift       0.28487804532051086
-  test_short_future_hold     0.40536168217658997
-  test_short_future_pred     0.42394816875457764
- test_short_future_react      0.4559269845485687
-   test_short_now_hold       0.18524618446826935
-   test_short_now_pred       0.27399781346321106
-   test_short_now_react       0.4646017253398895
-   test_short_tot_hold        0.2995464503765106
-   test_short_tot_pred        0.3520025610923767
-   test_short_tot_react       0.458974689245224
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-result_end
-Traceback (most recent call last):
-  File "/data/group1/z40351r/VoiceActivityProjection/vap/evaluation.py", line 382, in <module>
-    evaluate()
-  File "/data/group1/z40351r/VoiceActivityProjection/vap/evaluation.py", line 376, in evaluate
-    filepath = join(cfg_dict["exp_dir"], "evaluation", test_dataset + "_" + name + ".csv")
-KeyError: 'exp_dir'

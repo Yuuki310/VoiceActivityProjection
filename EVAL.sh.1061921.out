@@ -1,4 +1,0 @@
-  File "/data/group1/z40351r/VoiceActivityProjection/vap/evaluation.py", line 45
-    default=None
-           ^
-SyntaxError: invalid syntax

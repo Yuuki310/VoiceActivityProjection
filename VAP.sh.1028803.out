@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "/data/group1/z40351r/VoiceActivityProjection/vap/plot_utils.py", line 757, in <module>
-    from vap.model import VAPModel
-ImportError: cannot import name 'VAPModel' from 'vap.model' (/data/group1/z40351r/VoiceActivityProjection/vap/model.py)
