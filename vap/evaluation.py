@@ -2,14 +2,15 @@ from argparse import ArgumentParser
 from os.path import basename, join
 from pathlib import Path
 import pandas as pd
+import os
 
 import torch
 from torch.utils.data import DataLoader
 import pytorch_lightning as pl
 from pytorch_lightning.strategies.ddp import DDPStrategy
 
-from vap_dataset.datamodule import VapDataModule
-
+#from vap_dataset.datamodule import VapDataModule
+from datasets_turntaking import DialogAudioDM
 from vap.callbacks import SymmetricSpeakersCallback
 from vap.train import VAPModel, DataConfig, OptConfig
 from vap.phrases.dataset import PhrasesCallback
@@ -33,7 +34,21 @@ def get_args():
     parser.add_argument(
         "--checkpoint",
         type=str,
-        default="example/VAP_3mmz3t0u_50Hz_ad20s_134-epoch9-val_2.56.ckpt",
+    )
+    parser.add_argument(
+        "--state_dict",
+        type=str,
+        default=None
+    )
+    parser.add_argument(
+        "--test_dataset",
+        type=str,
+        default=None
+    )
+    parser.add_argument(
+        "--exp_dir",
+        type=str,
+        default=None
     )
     parser = pl.Trainer.add_argparse_args(parser)
     # parser = OptConfig.add_argparse_args(parser)
@@ -233,7 +248,10 @@ def find_threshold(
 
 
 def get_savepath(args, configs):
-    name = basename(args.checkpoint).replace(".ckpt", "")
+    if args.checkpoint:
+        name = basename(args.checkpoint).replace(".ckpt", "")
+    else:
+        name = basename(args.state_dict).replace(".ckpt", "")
     # name += "_" + "_".join(configs["data"].datasets)
     savepath = join(ROOT, name)
     Path(savepath).mkdir(exist_ok=True, parents=True)
@@ -249,24 +267,64 @@ def evaluate() -> None:
 
     args = configs["args"]
     cfg_dict = configs["cfg_dict"]
+    model_conf = configs["model"]
+    event_conf = configs["event"]
     savepath = get_savepath(args, configs)
+    exp_dir = cfg_dict["exp_dir"]
 
     #########################################################
     # Load model
     #########################################################
-    model = VAPModel.load_from_checkpoint(args.checkpoint)
+    # model = VAPModel.load_from_checkpoint(args.checkpoint)
+    
+    print("Load Model...")
+    if args.checkpoint is None:
+        print("From state-dict: ", args.state_dict)
+        model = VAPModel(model_conf, event_conf=event_conf)
+        sd = torch.load(args.state_dict)
+        model.load_state_dict(sd, strict=False)
+    else:
+        print("From Lightning checkpoint: ", args.checkpoint)
+        #model = VAPModel.load_from_checkpoint(args.checkpoint, conf=model_conf)
+        raise NotImplementedError("Not implemeted from checkpoint...")
+
+    device = "cpu"
+    if torch.cuda.is_available():
+        model = model.to("cuda")
+        device = "cuda"
 
     #########################################################
     # Load data
     #########################################################
-    dconf = configs["data"]
-    dm = VapDataModule(
-        train_path=dconf.train_path,
-        val_path=dconf.val_path,
-        test_path=dconf.test_path,
-        horizon=2,
-        batch_size=dconf.batch_size,
-        num_workers=dconf.num_workers,
+    # dconf = configs["data"]
+    # dm = VapDataModule(
+    #     train_path=dconf.train_path,
+    #     val_path=dconf.val_path,
+    #     test_path=dconf.test_path,
+    #     horizon=2,
+    #     batch_size=dconf.batch_size,
+    #     num_workers=dconf.num_workers,
+    # )
+    data_conf_path = os.path.join(exp_dir, "conf/dset_comf.yaml")
+    data_conf = DialogAudioDM.load_config()
+    DialogAudioDM.print_dm(data_conf)
+
+    data_conf["dataset"]["datasets"][0] = cfg_dict["test_dataset"]
+    dm = DialogAudioDM(
+        datasets=[data_conf["dataset"]["datasets"][0]],
+        type=data_conf["dataset"]["type"],
+        sample_rate=data_conf["dataset"]["sample_rate"],
+        audio_mono=data_conf["dataset"]["audio_mono"],
+        audio_duration=data_conf["dataset"]["audio_duration"],
+        audio_normalize=data_conf["dataset"]["audio_normalize"],
+        audio_overlap=data_conf["dataset"]["audio_overlap"],
+        vad_hz=data_conf["dataset"]["vad_hz"],
+        vad_horizon=data_conf["dataset"]["vad_horizon"],
+        vad_history=data_conf["dataset"]["vad_history"],
+        vad_history_times=data_conf["dataset"]["vad_history_times"],
+        vad=True,
+        batch_size=4,
+        num_workers=40,
     )
     dm.prepare_data()
     dm.setup("test")
@@ -288,8 +346,10 @@ def evaluate() -> None:
     #########################################################
     # Score
     #########################################################
-    for pop in ["checkpoint", "seed", "gpus"]:
+
+    for pop in ["exp_dir", "test_dataset", "state_dict", "checkpoint", "seed", "gpus"]:
         cfg_dict.pop(pop)
+    print(cfg_dict)
     cfg_dict["accelerator"] = "gpu"
     cfg_dict["devices"] = 1
     cfg_dict["deterministic"] = True
@@ -298,7 +358,7 @@ def evaluate() -> None:
         callbacks=[SymmetricSpeakersCallback(), PhrasesCallback()], **cfg_dict
     )
     result = trainer.test(model, dataloaders=dm.test_dataloader())[0]
-
+    print("result_end")
     # fixup results
     flat = {}
     for k, v in result.items():
@@ -310,14 +370,15 @@ def evaluate() -> None:
             flat[new_name] = v
     df = pd.DataFrame([flat])
 
-    name = "score"
+    name = str(data_conf["dataset"]["datasets"][0]) + "_score"
     if cfg_dict["precision"] == 16:
         name += "_fp16"
     if cfg_dict["limit_test_batches"] is not None:
         nn = cfg_dict["limit_test_batches"] * dm.batch_size
         name += f"_nb-{nn}"
 
-    filepath = join(savepath, name + ".csv")
+    os.makedirs(os.path.join(exp_dir, "evaluation"), exist_ok=True)
+    filepath = join(exp_dir, "evaluation", name + ".csv")
     df.to_csv(filepath, index=False)
     print("Saved to -> ", filepath)
 

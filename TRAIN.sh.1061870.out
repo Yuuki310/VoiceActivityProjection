@@ -1,0 +1,12 @@
+Global seed set to 1
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+DataConfig(train_path='None', val_path='None', test_path='../vap_dataset/data/sliding_test.csv', conf_path='/data/group1/z40351r/datasets_turntaking/config/dset_dialog_audio.yaml', flip_channels=True, flip_probability=0.5, mask_vad=True, mask_vad_probability=0.5, batch_size=16, num_workers=24, audio_duration=20)
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 529, in <module>
+    train()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 171, in train
+    data_conf = DialogAudioDM.load_config(dconf.data_conf_path)
+AttributeError: 'DataConfig' object has no attribute 'data_conf_path'

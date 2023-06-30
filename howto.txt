@@ -1,0 +1,79 @@
+VAP導入方法
+
+1. 環境構築
+python=3.9 pytorch==1.12.1 pytorch-cuda=11.6 pytorch-lightning=1.9.3 をインストールする
+次の3つをcloneし，各リポジトリのrequirements.txtとパッケージをインストールする．
+https://github.com/ErikEkstedt/datasets_turntaking
+https://github.com/ErikEkstedt/vap_turn_taking
+https://github.com/ErikEkstedt/VoiceActivityProjection
+
+
+
+2.コードの編集
+datasets_turntaking/datasets_turntaking/dataset/switchboard/__init__.py
+
+    ・7行目をSwitchboardのディレクトリパスに書き換える
+    AUDIO_DIR = join(repo_root(), "PATH/TO/AUDIO_DIR")
+
+
+VoiceActivityProjection/vap/train.py 
+
+    ・20行目のコメントアウトを戻す
+    from datasets_turntaking import DialogAudioDM
+
+    ・21行目をコメントアウトする
+    #from vap_dataset.datamodule import VapDataModule
+    (vap_datasetが非公開なのでdatasets_turntakingで代用)
+
+    ・161行目周辺の
+        dm = VapDataModule(
+            train_path=dconf.train_path,
+            val_path=dconf.val_path,
+            horizon=2,
+            batch_size=dconf.batch_size,
+            num_workers=dconf.num_workers,
+        )
+    を消去/コメントアウトする．
+
+    代わりに次の通り記述する．
+        #configの読みこみ
+        data_conf = DialogAudioDM.load_config()
+        DialogAudioDM.print_dm(data_conf)
+
+        dm = DialogAudioDM(
+            datasets=["switchboard"],
+            type=data_conf["dataset"]["type"],
+            sample_rate=data_conf["dataset"]["sample_rate"],
+            audio_mono=data_conf["dataset"]["audio_mono"],
+            audio_duration=data_conf["dataset"]["audio_duration"],
+            audio_normalize=data_conf["dataset"]["audio_normalize"],
+            audio_overlap=data_conf["dataset"]["audio_overlap"],
+            vad_hz=data_conf["dataset"]["vad_hz"],
+            vad_horizon=data_conf["dataset"]["vad_horizon"],
+            vad_history=data_conf["dataset"]["vad_history"],
+            vad_history_times=data_conf["dataset"]["vad_history_times"],
+            train_files=dconf.train_path,
+            val_files=dconf.val_path,
+            vad=True,
+            batch_size=4,
+            num_workers=0,
+        )
+    設定が冗長ではあるが動きはするはず
+
+/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dataset/switchboard/__init__.py
+
+    ・33~35行目をコメントアウト
+        # train_path=train_files,
+        # val_path=val_files,
+        # test_path=test_files,
+
+/data/group1/z40351r/datasets_turntaking/config/dset_dialog_audio.yaml
+    ・datasets: ["callhome"]
+    ・vad_hz : 50 
+    に変更
+
+3.実行
+python3 vap/train.py \
+ --data_train_path None \
+ --data_val_path None \
+現状この引数使ってなさそう

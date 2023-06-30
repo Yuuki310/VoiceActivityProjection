@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
-from os.path import basename
+from os.path import basename, join
+import os
 import matplotlib.pyplot as plt
 import torch
 import torchaudio
@@ -14,7 +15,7 @@ from vap.utils import (
     write_json,
 )
 from vap.plot_utils import plot_stereo
-
+from vap.train import OptConfig
 
 everything_deterministic()
 torch.manual_seed(0)
@@ -181,8 +182,10 @@ def get_args():
     parser.add_argument(
         "--plot", action="store_true", help="Visualize output (matplotlib)"
     )
+    parser.add_argument(
+        "--exp_dir"
+    )
     args = parser.parse_args()
-
     conf = VapConfig.args_to_conf(args)
     return args, conf
 
@@ -198,7 +201,7 @@ if __name__ == "__main__":
         print("From state-dict: ", args.state_dict)
         model = VapGPT(conf)
         sd = torch.load(args.state_dict)
-        model.load_state_dict(sd)
+        model.load_state_dict(sd, strict=False)
     else:
         from vap.train import VAPModel
 
@@ -256,6 +259,9 @@ if __name__ == "__main__":
     if not args.filename.endswith(".json"):
         args.filename += ".json"
 
+    result_dir = os.path.join(str(args.exp_dir), "result")
+    os.makedirs(result_dir, exist_ok=True)
+    args.filename = join(result_dir, str(args.filename))
     data = tensor_dict_to_json(out)
     write_json(data, args.filename)
     print("wavefile: ", args.audio)
@@ -274,6 +280,6 @@ if __name__ == "__main__":
         # Save figure
         figpath = args.filename.replace(".json", ".png")
         fig.savefig(figpath)
-        print(f"Saved figure as {figpath}.png")
+        print(f"Saved figure as {figpath}")
         print("Close figure to continue")
         plt.show()

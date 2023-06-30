@@ -1,0 +1,307 @@
+Global seed set to 1
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+------------------------------------------------------------
+Dataloader
+  datasets: ['callhome_eng']
+  type: sliding
+  sample_rate: 16000
+  audio_mono: False
+  audio_duration: 20
+  audio_normalize: True
+  audio_overlap: 2
+  audio_context_duration: 5
+  ipu_min_time: 1
+  ipu_pause_time: 0.2
+  vad_hz: 50
+  vad_horizon: 2
+  vad_history: True
+  vad_history_times: [60, 30, 10, 5]
+
+Map:   0%|          | 0/112 [00:00<?, ? examples/s]                                                   Map:   0%|          | 0/14 [00:00<?, ? examples/s]                                                  Map:   0%|          | 0/14 [00:00<?, ? examples/s]                                                  wandb: Currently logged in as: yuuki310. Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.15.4 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.15.3
+wandb: Run data is saved locally in runs/wandb/run-20230627_125216-mgpuu291
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run VapGPT_50Hz_ad20s_134
+wandb: ⭐️ View project at https://wandb.ai/yuuki310/VapGPT
+wandb: 🚀 View run at https://wandb.ai/yuuki310/VapGPT/runs/mgpuu291
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+IPU available: False, using: 0 IPUs
+HPU available: False, using: 0 HPUs
+[rank: 0] Global seed set to 1
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/4
+[W socket.cpp:401] [c10d] The server socket cannot be initialized on [::]:38340 (errno: 97 - Address family not supported by protocol).
+[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:38340 (errno: 97 - Address family not supported by protocol).
+[rank: 1] Global seed set to 1
+[rank: 3] Global seed set to 1
+[rank: 2] Global seed set to 1
+[rank: 3] Global seed set to 1
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/4
+[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:38340 (errno: 97 - Address family not supported by protocol).
+[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:38340 (errno: 97 - Address family not supported by protocol).
+[rank: 1] Global seed set to 1
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/4
+[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:38340 (errno: 97 - Address family not supported by protocol).
+[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:38340 (errno: 97 - Address family not supported by protocol).
+[rank: 2] Global seed set to 1
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/4
+[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:38340 (errno: 97 - Address family not supported by protocol).
+[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:38340 (errno: 97 - Address family not supported by protocol).
+[W socket.cpp:558] [c10d] The client socket cannot be initialized to connect to [localhost]:38340 (errno: 97 - Address family not supported by protocol).
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 4 processes
+----------------------------------------------------------------------------------------------------
+
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+------------------------------------------------------------
+Dataloader
+  datasets: ['callhome_eng']
+  type: sliding
+  sample_rate: 16000
+  audio_mono: False
+  audio_duration: 20
+  audio_normalize: True
+  audio_overlap: 2
+  audio_context_duration: 5
+  ipu_min_time: 1
+  ipu_pause_time: 0.2
+  vad_hz: 50
+  vad_horizon: 2
+  vad_history: True
+  vad_history_times: [60, 30, 10, 5]
+
+Learning Rate:  0.000363
+########################################
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+------------------------------------------------------------
+Dataloader
+  datasets: ['callhome_eng']
+  type: sliding
+  sample_rate: 16000
+  audio_mono: False
+  audio_duration: 20
+  audio_normalize: True
+  audio_overlap: 2
+  audio_context_duration: 5
+  ipu_min_time: 1
+  ipu_pause_time: 0.2
+  vad_hz: 50
+  vad_horizon: 2
+  vad_history: True
+  vad_history_times: [60, 30, 10, 5]
+
+Learning Rate:  0.000363
+########################################
+Traceback (most recent call last):
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+------------------------------------------------------------
+Dataloader
+  datasets: ['callhome_eng']
+  type: sliding
+  sample_rate: 16000
+  audio_mono: False
+  audio_duration: 20
+  audio_normalize: True
+  audio_overlap: 2
+  audio_context_duration: 5
+  ipu_min_time: 1
+  ipu_pause_time: 0.2
+  vad_hz: 50
+  vad_horizon: 2
+  vad_history: True
+  vad_history_times: [60, 30, 10, 5]
+
+Learning Rate:  0.000363
+########################################
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 499, in <module>
+/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/strategies/ddp.py:437: UserWarning: Error handling mechanism for deadlock detection is uninitialized. Skipping check.
+  rank_zero_warn("Error handling mechanism for deadlock detection is uninitialized. Skipping check.")
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 499, in <module>
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 499, in <module>
+    train()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 273, in train
+    train()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 273, in train
+    trainer.fit(model, datamodule=dm)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 608, in fit
+    train()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 273, in train
+    trainer.fit(model, datamodule=dm)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 608, in fit
+    trainer.fit(model, datamodule=dm)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 608, in fit
+    call._call_and_handle_interrupt(
+    call._call_and_handle_interrupt(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/call.py", line 38, in _call_and_handle_interrupt
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/call.py", line 38, in _call_and_handle_interrupt
+    call._call_and_handle_interrupt(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/call.py", line 38, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 650, in _fit_impl
+    return trainer_fn(*args, **kwargs)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 650, in _fit_impl
+    return trainer_fn(*args, **kwargs)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 650, in _fit_impl
+    self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1051, in _run
+    self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1051, in _run
+    self._run(model, ckpt_path=self.ckpt_path)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1051, in _run
+    self._call_setup_hook()  # allow user to setup lightning_module in accelerator environment
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1298, in _call_setup_hook
+    self._call_setup_hook()  # allow user to setup lightning_module in accelerator environment
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1298, in _call_setup_hook
+    self._call_setup_hook()  # allow user to setup lightning_module in accelerator environment
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1298, in _call_setup_hook
+    self._call_lightning_datamodule_hook("setup", stage=fn)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1375, in _call_lightning_datamodule_hook
+    self._call_lightning_datamodule_hook("setup", stage=fn)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1375, in _call_lightning_datamodule_hook
+    self._call_lightning_datamodule_hook("setup", stage=fn)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1375, in _call_lightning_datamodule_hook
+    return fn(*args, **kwargs)
+    return fn(*args, **kwargs)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 182, in setup
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 182, in setup
+    return fn(*args, **kwargs)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 182, in setup
+########################################
+Early stopping (patience=10)
+########################################
+Learning Rate:  0.000363
+########################################
+    self.train_dset = self._dataset(train_hf_dataset, split="train")
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 152, in _dataset
+    return DialogAudioDataset(
+    self.train_dset = self._dataset(train_hf_dataset, split="train")
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 203, in __init__
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 152, in _dataset
+Traceback (most recent call last):
+    self.train_dset = self._dataset(train_hf_dataset, split="train")
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 152, in _dataset
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 499, in <module>
+    train()
+    return DialogAudioDataset(
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 203, in __init__
+    self.map_to_dset_idx, self.map_to_start_time = self.get_sample_maps(type)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 216, in get_sample_maps
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 273, in train
+    trainer.fit(model, datamodule=dm)
+    self.map_to_dset_idx, self.map_to_start_time = self.get_sample_maps(type)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 216, in get_sample_maps
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 608, in fit
+    call._call_and_handle_interrupt(
+    return DialogAudioDataset(
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 203, in __init__
+    map_to_dset_idx, map_to_start_time = get_sliding_window_indices(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/call.py", line 36, in _call_and_handle_interrupt
+    return trainer.strategy.launcher.launch(trainer_fn, *args, trainer=trainer, **kwargs)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 126, in get_sliding_window_indices
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/strategies/launchers/subprocess_script.py", line 88, in launch
+    return function(*args, **kwargs)
+    duration = get_audio_info(path)["duration"]
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/utils.py", line 38, in get_audio_info
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 650, in _fit_impl
+    self._run(model, ckpt_path=self.ckpt_path)
+    map_to_dset_idx, map_to_start_time = get_sliding_window_indices(
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 126, in get_sliding_window_indices
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1051, in _run
+    self._call_setup_hook()  # allow user to setup lightning_module in accelerator environment
+    duration = get_audio_info(path)["duration"]
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1298, in _call_setup_hook
+    self._call_lightning_datamodule_hook("setup", stage=fn)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/utils.py", line 38, in get_audio_info
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/trainer/trainer.py", line 1375, in _call_lightning_datamodule_hook
+    return fn(*args, **kwargs)
+    info = info_sox(audio_path)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchaudio/backend/sox_io_backend.py", line 104, in info
+    self.map_to_dset_idx, self.map_to_start_time = self.get_sample_maps(type)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 182, in setup
+    self.train_dset = self._dataset(train_hf_dataset, split="train")
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 216, in get_sample_maps
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 152, in _dataset
+    return DialogAudioDataset(
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 203, in __init__
+    self.map_to_dset_idx, self.map_to_start_time = self.get_sample_maps(type)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 216, in get_sample_maps
+    map_to_dset_idx, map_to_start_time = get_sliding_window_indices(
+    info = info_sox(audio_path)
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 126, in get_sliding_window_indices
+    duration = get_audio_info(path)["duration"]
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchaudio/backend/sox_io_backend.py", line 104, in info
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/utils.py", line 38, in get_audio_info
+    info = info_sox(audio_path)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchaudio/backend/sox_io_backend.py", line 104, in info
+    return _fallback_info(filepath, format)
+    map_to_dset_idx, map_to_start_time = get_sliding_window_indices(
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 126, in get_sliding_window_indices
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchaudio/io/_compat.py", line 27, in info_audio
+    s = torch.classes.torchaudio.ffmpeg_StreamReader(src, format, None)
+RuntimeError: Failed to open the input "/data/group1/z40351r/datasets_turntaking/assets/callhome/eng/data/6130.wav" (No such file or directory).
+    return _fallback_info(filepath, format)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchaudio/io/_compat.py", line 27, in info_audio
+    return _fallback_info(filepath, format)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchaudio/io/_compat.py", line 27, in info_audio
+    duration = get_audio_info(path)["duration"]
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/utils.py", line 38, in get_audio_info
+    s = torch.classes.torchaudio.ffmpeg_StreamReader(src, format, None)
+RuntimeError: Failed to open the input "/data/group1/z40351r/datasets_turntaking/assets/callhome/eng/data/6130.wav" (No such file or directory).
+    s = torch.classes.torchaudio.ffmpeg_StreamReader(src, format, None)
+RuntimeError: Failed to open the input "/data/group1/z40351r/datasets_turntaking/assets/callhome/eng/data/6130.wav" (No such file or directory).
+    info = info_sox(audio_path)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchaudio/backend/sox_io_backend.py", line 104, in info
+    return _fallback_info(filepath, format)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/torchaudio/io/_compat.py", line 27, in info_audio
+    s = torch.classes.torchaudio.ffmpeg_StreamReader(src, format, None)
+RuntimeError: Failed to open the input "/data/group1/z40351r/datasets_turntaking/assets/callhome/eng/data/6130.wav" (No such file or directory).
+wandb: Waiting for W&B process to finish... (failed 1). Press Control-C to abort syncing.
+wandb: 🚀 View run VapGPT_50Hz_ad20s_134 at: https://wandb.ai/yuuki310/VapGPT/runs/mgpuu291
+wandb: Synced 6 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: runs/wandb/run-20230627_125216-mgpuu291/logs
+Exception in thread ChkStopThr:
+Traceback (most recent call last):
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/threading.py", line 980, in _bootstrap_inner
+    self.run()
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/threading.py", line 917, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 278, in check_stop_status
+    self._loop_check_status(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/wandb_run.py", line 216, in _loop_check_status
+    local_handle = request()
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/interface/interface.py", line 787, in deliver_stop_status
+    return self._deliver_stop_status(status)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 585, in _deliver_stop_status
+    return self._deliver_record(record)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/interface/interface_shared.py", line 560, in _deliver_record
+    handle = mailbox._deliver_record(record, interface=self)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/lib/mailbox.py", line 455, in _deliver_record
+    interface._publish(record)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/interface/interface_sock.py", line 51, in _publish
+    self._sock_client.send_record_publish(record)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 221, in send_record_publish
+    self.send_server_request(server_req)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 155, in send_server_request
+    self._send_message(msg)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 152, in _send_message
+    self._sendall_with_error_handle(header + data)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/wandb/sdk/lib/sock_client.py", line 130, in _sendall_with_error_handle
+    sent = self._sock.send(data)
+BrokenPipeError: [Errno 32] Broken pipe

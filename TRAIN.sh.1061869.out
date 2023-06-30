@@ -1,0 +1,11 @@
+Global seed set to 1
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 528, in <module>
+    train()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 170, in train
+    data_conf = DialogAudioDM.load_config(dconf["data_conf_path"])
+TypeError: 'DataConfig' object is not subscriptable

@@ -1,0 +1,23 @@
+{
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch0-val_2.46.ckpt": 2.4632070064544678,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch1-val_2.40.ckpt": 2.395481586456299,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch2-val_2.36.ckpt": 2.3639941215515137,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch3-val_2.36.ckpt": 2.3640406131744385,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch4-val_2.35.ckpt": 2.3498823642730713,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch5-val_2.36.ckpt": 2.3559844493865967,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch6-val_2.34.ckpt": 2.343222141265869,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch7-val_2.34.ckpt": 2.340848922729492,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch8-val_2.34.ckpt": 2.33728289604187,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch9-val_2.34.ckpt": 2.337867021560669,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch10-val_2.32.ckpt": 2.3238489627838135,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch11-val_2.37.ckpt": 2.3680973052978516,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch12-val_2.35.ckpt": 2.3466506004333496,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch13-val_2.34.ckpt": 2.3388822078704834,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch14-val_2.36.ckpt": 2.3643856048583984,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch15-val_2.37.ckpt": 2.370903968811035,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch16-val_2.36.ckpt": 2.3639652729034424,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch17-val_2.39.ckpt": 2.390253782272339,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch18-val_2.41.ckpt": 2.4053382873535156,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch19-val_2.41.ckpt": 2.4072883129119873,
+"/data/group1/z40351r/VoiceActivityProjection/exp/callhome_eng/checkpoints/VapGPT_50Hz_ad20s_134-epoch20-val_2.42.ckpt": 2.4233956336975098
+}

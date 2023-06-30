@@ -289,10 +289,8 @@ class ObjectiveVAP(nn.Module):
         device=None,
     ) -> Tuple[Dict[str, Tensor], Dict[str, Tensor]]:
         batch_size = len(events["hold"])
-
         preds = {"hs": [], "pred_shift": [], "ls": [], "pred_backchannel": []}
         targets = {"hs": [], "pred_shift": [], "ls": [], "pred_backchannel": []}
-
         for b in range(batch_size):
             ###########################################
             # Hold vs Shift
@@ -302,6 +300,11 @@ class ObjectiveVAP(nn.Module):
             # we use Holds=0, Shifts=1
             for start, end, speaker in events["shift"][b]:
                 pshift = p_now[b, start:end, speaker]
+                # print("\np_now",p_now)
+                # print("p_now.shape: ", p_now.shape)
+                # print("b,start,end,speaker: ", b, start, end, speaker)
+                # print("p_now[b] : ", p_now[b])
+                # print("pshift",pshift)
                 preds["hs"].append(pshift)
                 targets["hs"].append(torch.ones_like(pshift))
 
@@ -361,6 +364,10 @@ class ObjectiveVAP(nn.Module):
                 # thus we do not have to subtract the prob from 1 (only the labels are now zero)
                 # prob of next speaker -> the correct next speaker i.e. a SHORT
                 pshort = p_fut[b, start:end, speaker]  # 1-shift = Hold
+                # print("\np_fut",p_fut)
+                # print("p_fut.shape",p_fut.shape)
+                # print("b,start,end,speaker: ", b,start,end,speaker)
+                # print("pshort",pshort)
                 preds["ls"].append(pshort)
                 # Negatives are zero -> short predictions
                 targets["ls"].append(torch.zeros_like(pshort))
@@ -369,6 +376,8 @@ class ObjectiveVAP(nn.Module):
         device = device if device is not None else p_now.device
         out_preds = {}
         out_targets = {}
+        # print("\nobjective")
+        # print(preds)
         for k, v in preds.items():
             if len(v) > 0:
                 out_preds[k] = torch.cat(v).to(device)

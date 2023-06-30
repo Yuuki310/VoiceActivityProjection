@@ -1,0 +1,51 @@
+Global seed set to 1
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+------------------------------------------------------------
+Dataloader
+  datasets: ['callhome_eng']
+  type: sliding
+  sample_rate: 16000
+  audio_mono: False
+  audio_duration: 20
+  audio_normalize: True
+  audio_overlap: 2
+  audio_context_duration: 5
+  ipu_min_time: 1
+  ipu_pause_time: 0.2
+  vad_hz: 50
+  vad_horizon: 2
+  vad_history: True
+  vad_history_times: [60, 30, 10, 5]
+
+Downloading and preparing dataset callhome/eng (download: Unknown size, generated: 2.19 MiB, post-processed: Unknown size, total: 2.19 MiB) to /home/z40351r/.cache/huggingface/datasets/callhome/eng-6d5ac2c30a8cf9d8/0.0.0/93210f3299d590c75a12332c41019a56fd998a0cab449da20efc927adf2a7745...
+CallHomeConfig(name='eng', version=0.0.0, data_dir='/data/group1/z40351r/datasets_turntaking/assets', data_files=None, description='CALLHOME')
+eng
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 499, in <module>
+    train()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 194, in train
+    dm.prepare_data()
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 140, in prepare_data
+    _ = get_dialog_audio_datasets(
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 47, in get_dialog_audio_datasets
+    dsets.append(load_callhome(split, name="eng"))
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dataset/callhome/__init__.py", line 17, in load_callhome
+    dset = load_dataset(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/datasets/load.py", line 1797, in load_dataset
+    builder_instance.download_and_prepare(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/datasets/builder.py", line 890, in download_and_prepare
+    self._download_and_prepare(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/datasets/builder.py", line 1649, in _download_and_prepare
+    super()._download_and_prepare(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/datasets/builder.py", line 963, in _download_and_prepare
+    split_generators = self._split_generators(dl_manager, **split_generators_kwargs)
+  File "/home/z40351r/.cache/huggingface/modules/datasets_modules/datasets/callhome/93210f3299d590c75a12332c41019a56fd998a0cab449da20efc927adf2a7745/callhome.py", line 123, in _split_generators
+    splits = self._load_english()
+  File "/home/z40351r/.cache/huggingface/modules/datasets_modules/datasets/callhome/93210f3299d590c75a12332c41019a56fd998a0cab449da20efc927adf2a7745/callhome.py", line 82, in _load_english
+    read_txt(os.path.join(SPLIT_PATH, "eng", subset + ".txt"))
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/utils.py", line 126, in read_txt
+    with open(path, "r", encoding=encoding) as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dataset/callhome/files/eng/val.txt'

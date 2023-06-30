@@ -1,0 +1,18 @@
+Load Model...
+From state-dict:  exp/sample/best_model.pt
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+probs:  (1, 500, 256)
+vad:  (1, 500, 2)
+p_now:  (1, 500, 2)
+p_future:  (1, 500, 2)
+H:  (1, 500)
+loss:  (1, 400)
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/run.py", line 262, in <module>
+    os.makedirs(os.path.join(args.exp_dir, "result"), exist_ok=True)
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/posixpath.py", line 76, in join
+    a = os.fspath(a)
+TypeError: expected str, bytes or os.PathLike object, not NoneType

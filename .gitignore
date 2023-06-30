@@ -1,4 +1,8 @@
 # Custom
+.sh
+old_run/
+example_result/
+example/
 wandb/
 pyrightconfig.json
 runs/

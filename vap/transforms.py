@@ -122,7 +122,7 @@ class WaveformFrequencyMasking(torch.nn.Module):
         self.hop_length = int(hop_time * sample_rate)
         self.freq_mask_param = freq_mask_param
         self.iid_masks = iid_masks
-
+        
         self.to_spectrogram = AT.Spectrogram(
             n_fft=self.n_fft, hop_length=self.hop_length, power=None
         )
@@ -132,10 +132,17 @@ class WaveformFrequencyMasking(torch.nn.Module):
         self.frequency_masking = AT.FrequencyMasking(freq_mask_param, iid_masks)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        spec = self.to_spectrogram(x)  # (B, C, Freq, Time)
-        spec_fm = self.frequency_masking(spec.real)
+        self.device = x.device
+        # spec = self.to_spectrogram(x).to(self.device)  # (B, C, Freq, Time)    
+        spec = AT.Spectrogram(
+            n_fft=self.n_fft, hop_length=self.hop_length, power=None, wkwargs={"device" : self.device}
+        )(x).to(self.device)
+        spec_fm = self.frequency_masking(spec.real).to(self.device)
         spec.real = spec_fm
-        return self.to_waveform(spec)
+        processed = AT.InverseSpectrogram(
+            n_fft=self.n_fft, hop_length=self.hop_length, wkwargs={"device" : self.device}
+        )(spec).to(self.device)
+        return processed
 
 
 if __name__ == "__main__":

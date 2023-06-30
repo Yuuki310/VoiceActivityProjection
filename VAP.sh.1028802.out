@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/plot_utils.py", line 756, in <module>
+    from datasets_turntaking import DialogAudioDM
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/__init__.py", line 1, in <module>
+    from .dialog_audio_dm import DialogAudioDM
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dm.py", line 16, in <module>
+    from datasets_turntaking.dialog_audio_dataset import DialogAudioDataset
+  File "/data/group1/z40351r/datasets_turntaking/datasets_turntaking/dialog_audio_dataset.py", line 10, in <module>
+    from vap_turn_taking.utils import vad_list_to_onehot, get_activity_history
+ModuleNotFoundError: No module named 'vap_turn_taking'

@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 528, in <module>
+    train()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 152, in train
+    configs = get_args()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 117, in get_args
+    data_conf = DataConfig.args_to_conf(args)
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/train.py", line 91, in args_to_conf
+    return DataConfig(
+TypeError: __init__() got an unexpected keyword argument 'conf_path'

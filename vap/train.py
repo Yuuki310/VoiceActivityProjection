@@ -2,8 +2,11 @@
 # import hydra
 from argparse import ArgumentParser
 from os import environ
+import os
 from typing import Dict
 from dataclasses import dataclass
+import yaml
+import json 
 
 import wandb
 import torch
@@ -17,8 +20,8 @@ from pytorch_lightning.loggers.wandb import WandbLogger
 from pytorch_lightning.strategies.ddp import DDPStrategy
 from torchmetrics.classification import Accuracy, F1Score
 
-# from datasets_turntaking import DialogAudioDM
-from vap_dataset.datamodule import VapDataModule
+from datasets_turntaking import DialogAudioDM
+#from vap_dataset.datamodule import VapDataModule
 from vap.phrases.dataset import PhrasesCallback
 from vap.callbacks import SymmetricSpeakersCallback, AudioAugmentationCallback
 from vap.events import TurnTakingEvents, EventConfig
@@ -69,6 +72,7 @@ class DataConfig:
     train_path: str = "../vap_dataset/data/sliding_train.csv"
     val_path: str = "../vap_dataset/data/sliding_val.csv"
     test_path: str = "../vap_dataset/data/sliding_test.csv"
+    conf_path: str = None
     flip_channels: bool = True
     flip_probability: float = 0.5
     mask_vad: bool = True
@@ -101,6 +105,8 @@ def get_args():
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--wandb_project", type=str, default="VapGPT")
+    parser.add_argument("--exp_dir", default="exp/tmp", help="Full path to save best validation model")
+
     parser = pl.Trainer.add_argparse_args(parser)
     parser = OptConfig.add_argparse_args(parser)
     parser = DataConfig.add_argparse_args(parser)
@@ -146,6 +152,7 @@ def get_run_name(configs) -> str:
 
 def train() -> None:
     configs = get_args()
+
     cfg_dict = configs["cfg_dict"]
 
     pl.seed_everything(cfg_dict["seed"])
@@ -158,15 +165,39 @@ def train() -> None:
     name = get_run_name(configs)
 
     dconf = configs["data"]
-    dm = VapDataModule(
-        train_path=dconf.train_path,
-        val_path=dconf.val_path,
-        horizon=2,
-        batch_size=dconf.batch_size,
-        num_workers=dconf.num_workers,
+
+    #configの読みこみ
+    print(dconf)
+    data_conf = DialogAudioDM.load_config(dconf.conf_path)
+    DialogAudioDM.print_dm(data_conf)
+
+    dm = DialogAudioDM(
+        datasets=data_conf["dataset"]["datasets"],
+        type=data_conf["dataset"]["type"],
+        sample_rate=data_conf["dataset"]["sample_rate"],
+        audio_mono=data_conf["dataset"]["audio_mono"],
+        audio_duration=data_conf["dataset"]["audio_duration"],
+        audio_normalize=data_conf["dataset"]["audio_normalize"],
+        audio_overlap=data_conf["dataset"]["audio_overlap"],
+        vad_hz=data_conf["dataset"]["vad_hz"],
+        vad_horizon=data_conf["dataset"]["vad_horizon"],
+        vad_history=data_conf["dataset"]["vad_history"],
+        vad_history_times=data_conf["dataset"]["vad_history_times"],
+        train_files=dconf.train_path,
+        val_files=dconf.val_path,
+        vad=True,
+        batch_size=4,
+        num_workers=40,
     )
+
+    # dm = VapDataModule(
+    #     train_path=dconf.train_path,
+    #     val_path=dconf.val_path,
+    #     horizon=2,
+    #     batch_size=dconf.batch_size,
+    #     num_workers=dconf.num_workers,
+    # )
     dm.prepare_data()
-    print(dm)
 
     if cfg_dict["debug"]:
         environ["WANDB_MODE"] = "offline"
@@ -181,15 +212,29 @@ def train() -> None:
     else:
         oconf = configs["opt"]
 
+        # Save Config File
+        exp_dir = cfg_dict["exp_dir"]
+        os.makedirs(exp_dir, exist_ok=True)
+        conf_path = os.path.join(exp_dir, "data_conf.yml")
+        with open(conf_path, "w") as outfile:
+            yaml.safe_dump(cfg_dict, outfile)
+
         # Callbacks & Logger
         logger = None
+
+        checkpoint_dir = os.path.join(exp_dir, "checkpoints/")
+        checkpoint = ModelCheckpoint(
+            checkpoint_dir,
+            mode=oconf.mode,
+            monitor=oconf.monitor,
+            auto_insert_metric_name=False,
+            filename=name + "-epoch{epoch}-val_{val_loss:.2f}",
+            save_top_k=-1,
+            save_last=True,
+        )
+
         callbacks = [
-            ModelCheckpoint(
-                mode=oconf.mode,
-                monitor=oconf.monitor,
-                auto_insert_metric_name=False,
-                filename=name + "-epoch{epoch}-val_{val_loss:.2f}",
-            ),
+            checkpoint,
             EarlyStopping(
                 monitor=oconf.monitor,
                 mode=oconf.mode,
@@ -224,20 +269,40 @@ def train() -> None:
         print("Learning Rate: ", model.opt_conf.learning_rate)
         print("#" * 40)
 
-        # Actual Training
+        
 
+        # Actual Training
         if torch.cuda.is_available():
             cfg_dict["accelerator"] = "gpu"
 
         for n in ["logger", "strategy", "debug", "seed", "wandb_project"]:
             cfg_dict.pop(n)
+
         trainer = pl.Trainer(
+            max_epochs = 100,
+            accelerator="gpu", 
+            strategy="ddp",
+            devices=-1,
             logger=logger,
             callbacks=callbacks,
-            strategy=DDPStrategy(find_unused_parameters=False),
-            **cfg_dict,
+            #strategy=DDPStrategy(find_unused_parameters=False),
+            #**cfg_dict,
         )
+        
+        ############
+        #TRAIN
         trainer.fit(model, datamodule=dm)
+
+        best_k = {k: v.item() for k, v in checkpoint.best_k_models.items()}
+        with open(os.path.join(exp_dir, "conf/best_k_models.json"), "w") as f:
+            json.dump(best_k, f, indent=0)
+        
+        best_model = VAPModel(configs["model"], opt_conf=configs["opt"], event_conf=configs["event"])
+        state_dict = torch.load(checkpoint.best_model_path)
+        best_model.load_state_dict(state_dict=state_dict["state_dict"])
+        
+        torch.save(best_model.state_dict(), os.path.join(exp_dir, "best_model.pt"))
+
 
 
 # Used in training (LightningModule) but not required for inference
@@ -302,14 +367,13 @@ class VAPModel(VapGPT, pl.LightningModule):
 
     def metrics_step(self, preds, targets, split="val"):
         m = self.val_metrics if split == "val" else self.test_metrics
-
         # The metrics don't work if the predictions are not rounded
         # I don't know why...
         if preds["hs"] is not None:
             m["f1"]["hs"].update(preds=preds["hs"].round(), target=targets["hs"])
             m["acc"]["hs"].update(preds=preds["hs"].round(), target=targets["hs"])
 
-        if preds["ls"] is not None:
+        if preds["ls"] is not None :
             m["f1"]["ls"].update(preds=preds["ls"].round(), target=targets["ls"])
             m["acc"]["ls"].update(preds=preds["ls"].round(), target=targets["ls"])
 
@@ -334,7 +398,6 @@ class VAPModel(VapGPT, pl.LightningModule):
             m = self.val_metrics
         else:
             m = self.test_metrics
-
         f1 = {}
         for name, metric in m["f1"].items():
             f1[name] = metric.compute()
@@ -363,7 +426,6 @@ class VAPModel(VapGPT, pl.LightningModule):
         """
         Arguments:
             batch:      dict, containing 'waveform', va, va_history
-
         Returns:
             out:        dict, ['logits', 'vad', 'vap_loss', 'vad_loss']
         """
@@ -406,15 +468,16 @@ class VAPModel(VapGPT, pl.LightningModule):
         """validation step"""
         if not hasattr(self, "val_metrics"):
             self.val_metrics = self.get_metrics()
-
         out = self.shared_step(batch)
         batch_size = batch["waveform"].shape[0]
-        self.log("val_loss", out["vap_loss"], batch_size=batch_size, sync_dist=True)
+        self.log("val_loss", out["vap_loss"], batch_size=batch_size, sync_dist=True, prog_bar=True)
         self.log("val_loss_va", out["vad_loss"], batch_size=batch_size, sync_dist=True)
 
         # Event Metrics
         if self.event_extractor is not None:
             events = self.event_extractor(batch["vad"])
+            # print("\nevents")
+            # print(events)
             # probs = self.zero_shot.get_probs(out["logits"], batch["vad"])
             # preds, targets = self.zero_shot.extract_prediction_and_targets(
             #     p=probs["p"], p_bc=probs["p_bc"], events=events

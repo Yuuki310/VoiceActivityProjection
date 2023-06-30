@@ -1,0 +1,33 @@
+SAVEPATH:  runs_evaluation/best_model.pt
+Load Model...
+From state-dict:  exp/callhome_jpn/best_model.pt
+########################################
+Load pretrained CPC
+########################################
+Froze EncoderCPC!
+------------------------------------------------------------
+Dataloader
+  datasets: ['callhome_jpn']
+  type: sliding
+  sample_rate: 16000
+  audio_mono: False
+  audio_duration: 20
+  audio_normalize: True
+  audio_overlap: 2
+  audio_context_duration: 5
+  ipu_min_time: 1
+  ipu_pause_time: 0.2
+  vad_hz: 50
+  vad_horizon: 2
+  vad_history: True
+  vad_history_times: [60, 30, 10, 5]
+  batch_size: 4
+
+Traceback (most recent call last):
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/evaluation.py", line 381, in <module>
+    evaluate()
+  File "/data/group1/z40351r/VoiceActivityProjection/vap/evaluation.py", line 352, in evaluate
+    trainer = pl.Trainer(
+  File "/home/z40351r/anaconda3/envs/vap2/lib/python3.9/site-packages/pytorch_lightning/utilities/argparse.py", line 348, in insert_env_defaults
+    return fn(self, **kwargs)
+TypeError: __init__() got an unexpected keyword argument 'exp_dir'
